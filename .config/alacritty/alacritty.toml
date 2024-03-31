@@ -31,5 +31,5 @@ TERM = "alacritty"
 size = 11.0
 
 [font.normal]
-family = "monospace"
-style = "Regular"
+family = "Jetbrains Mono"
+style = "Monospace"
