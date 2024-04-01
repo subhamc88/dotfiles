@@ -9,16 +9,17 @@ require("lazy").setup({
   spec = {
     {
       "LazyVim/LazyVim",
-      import = "lazyvim.plugins"
     },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "plugins" },
+    { import = "lazyvim.plugins" },
+
   },
   defaults = {
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "gruvbox", "tokyonight", "habamax" } },
+  install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = true },
   performance = {
     rtp = {
