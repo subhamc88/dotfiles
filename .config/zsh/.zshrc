@@ -1,8 +1,13 @@
-export ZSH="~/.config/zsh/"
-export PLUG="~/.config/zsh/plugins/"
-# HIstory
-export HIST="~/.config/zsh/.zsh_history"
+export ZSH="$HOME/.config/zsh"
 
+# HIstory
+source $ZSH/.zsh_history
+
+# plugins
+export PLUG="$ZSH/plugins"
+source $PLUG/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $PLUG/zsh-autosuggestions/zsh-autosuggestions.zsh
+fpath=($PLUG/zsh-completions/zsh-completions.plugin.zsh)
 # Alias
 alias ls="exa -alh --group-directories-first --color=always"
 
