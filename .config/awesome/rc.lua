@@ -1,5 +1,3 @@
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
@@ -66,6 +64,21 @@ modkey = "Mod1"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
   awful.layout.suit.max.fullscreen,
+  awful.layout.suit.floating,
+  awful.layout.suit.tile,
+  awful.layout.suit.tile.left,
+  awful.layout.suit.tile.bottom,
+  awful.layout.suit.tile.top,
+  awful.layout.suit.fair,
+  awful.layout.suit.fair.horizontal,
+  awful.layout.suit.spiral,
+  awful.layout.suit.spiral.dwindle,
+  awful.layout.suit.max,
+  awful.layout.suit.magnifier,
+  awful.layout.suit.corner.nw,
+  -- awful.layout.suit.corner.ne,
+  -- awful.layout.suit.corner.sw,
+  -- awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -301,8 +314,8 @@ globalkeys = gears.table.join(
     end,
     { description = "restore minimized", group = "client" }),
 
-  -- Prompt
-  awful.key({ modkey }, "r", function() awful.util.spawn("rofi -show drun") end,
+  -- Rofi
+  awful.key({ modkey }, "r", function() awful.spawn.with_shell("rofi -show drun") end,
     { description = "run prompt", group = "launcher" }),
 
   awful.key({ modkey }, "x",
@@ -556,6 +569,10 @@ end)
 client.connect_signal("mouse::enter", function(c)
   c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
+
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+awful.spawn.with_shell("feh --bg-fill ~/wallpapers/retro-workspace.png")
+awful.spawn.with_shell("picom --experimental-backends -b")
