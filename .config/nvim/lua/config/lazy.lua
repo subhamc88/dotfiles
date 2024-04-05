@@ -10,7 +10,6 @@ require("lazy").setup({
     {
       "LazyVim/LazyVim",
     },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "plugins" },
     { import = "lazyvim.plugins" },
 
