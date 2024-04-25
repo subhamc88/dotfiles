@@ -3,6 +3,9 @@ export ZSH="$HOME/.config/zsh"
 # HIstory
 source $ZSH/.zsh_history
 
+# Autostart CLI Apps
+tmux a
+
 # Alias
 alias ls="exa -alh --group-directories-first --color=always"
 
