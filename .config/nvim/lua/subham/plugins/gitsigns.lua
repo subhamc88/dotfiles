@@ -10,7 +10,6 @@ return {
           opts.buffer = bufnr
           vim.keymap.set(mode, l, r, opts)
         end
-
         -- Navigation
         map('n', ']c', function()
           if vim.wo.diff then
@@ -27,7 +26,6 @@ return {
             gitsigns.nav_hunk 'prev'
           end
         end, { desc = 'Jump to previous git [c]hange' })
-
         -- Actions
         -- visual mode
         map('v', '<leader>hs', function()
