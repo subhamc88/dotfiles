@@ -24,7 +24,6 @@ alias gn="cd /mnt/work/self/notes/"
 alias gnc="cd /mnt/work/self/notes/college/"
 
 alias gt="cd /mnt/work/self/todo_list"
-
 # Theme
 eval "$(starship init zsh)"
 
