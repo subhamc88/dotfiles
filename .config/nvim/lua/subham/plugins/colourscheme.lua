@@ -1,8 +1,7 @@
 return {
-  'ellisonleao/gruvbox.nvim',
+  'navarasu/onedark.nvim',
   priority = 1000,
   init = function()
-    vim.cmd.colorscheme 'gruvbox'
-    vim.cmd.hi 'Comment gui=none'
+    vim.cmd.colorscheme 'onedark'
   end,
 }
