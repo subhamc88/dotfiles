@@ -1,0 +1,14 @@
+[[session]]
+name = "repos"
+path = "/mnt/storage/projects/repos"
+startup_command = "ls"
+
+[[session]]
+name = "portfolio"
+path = "/mnt/storage/projects/repos/portfolio"
+startup_command = "nvim ."
+
+[[session]]
+name = "config"
+path = "/home/subham/.config"
+startup_command = "ls"
