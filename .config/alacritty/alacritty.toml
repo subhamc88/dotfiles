@@ -66,7 +66,6 @@ TERM = "alacritty"
 
 [font]
 builtin_box_drawing = true
-size = 11.0
 
 [font.normal]
 family = "Firacode Nerd Font"
