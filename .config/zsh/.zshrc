@@ -5,6 +5,7 @@ source $ZSH/.zsh_history
 
 # Autostart CLI Apps
 fastfetch
+
 # Alias
 alias ls="exa -alh --group-directories-first --color=always"
 
@@ -22,5 +23,11 @@ source $PLUG/sudo.plugin.zsh
 source $PLUG/vi-mode.plugin.zsh
 source $PLUG/zsh-you-should-use.plugin.zsh
 source $PLUG/zsh-history-substring-search.plugin.zsh
+
 fpath=($PLUG/zsh-completions.plugin.zsh)
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+
+# PyENV
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
