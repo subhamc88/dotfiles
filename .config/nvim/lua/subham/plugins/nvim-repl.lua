@@ -4,10 +4,12 @@ return {
     vim.g['repl_filetype_commands'] = {
       javascript = 'node',
       python = 'ipython --no-autoindent',
+      matlab = 'octave',
     }
   end,
   keys = {
     { '<leader>rt', '<cmd>ReplToggle<cr>', desc = 'Toggle nvim-repl' },
     { '<leader>rc', '<cmd>ReplRunCell<cr>', desc = 'nvim-repl run cell' },
+    { '<leader>rl', '<cmd>ReplRunLine<cr>', desc = 'nvim-repl run line' },
   },
 }
