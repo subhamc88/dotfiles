@@ -1,13 +1,12 @@
+# Evironment Variables
 export ZSH="$HOME/.config/zsh"
+export EDITOR="/usr/bin/nvim"
 
-# HIstory
+# History
 source $ZSH/.zsh_history
 
 # Autostart CLI Apps
 fastfetch
-
-# Alias
-alias ls="exa -alh --group-directories-first --color=always"
 
 # Theme
 eval "$(starship init zsh)"
@@ -15,6 +14,8 @@ eval "$(fzf --zsh)"
 
 # Plugins
 export PLUG="$ZSH/plugins"
+export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH"
+eval "$(tmuxifier init -)"
 
 source $PLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $PLUG/zsh-autosuggestions.zsh
@@ -31,3 +32,6 @@ fpath=($PLUG/zsh-completions.plugin.zsh)
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# Alias
+alias ls="exa -alh --group-directories-first --color=always"
