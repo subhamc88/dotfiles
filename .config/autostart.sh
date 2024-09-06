@@ -1,4 +1,3 @@
 #!/bin/bash
 picom --experimental-backends -b &
-~/.fehbg &
-
+feh --no-fehbg --bg-fill '/storage/personal/wallpapers/catpuccin-rosewater.png'&
