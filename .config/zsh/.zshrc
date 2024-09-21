@@ -14,8 +14,6 @@ eval "$(fzf --zsh)"
 
 # Plugins
 export PLUG="$ZSH/plugins"
-export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
 
 source $PLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $PLUG/zsh-autosuggestions.zsh
