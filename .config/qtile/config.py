@@ -15,7 +15,7 @@ def autostart():
 
 
 mod = "mod1"
-terminal = guess_terminal()
+terminal = "kitty"
 
 keys = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
