@@ -1,6 +1,10 @@
+# Ignore system-specific files and directories
 .android/
 .cache/
+.config/
 .gnupg/
+.local/
+.mullvad/
 .net/
 .npm/
 .nv/
@@ -18,16 +22,9 @@
 .gitconfig
 .gitmodules
 .gtkrc-2.0
-.zshrc
-
-# Ignore scripts or installation files that may contain sensitive information
-package-installation.sh
-pacman.config.sh
 
 # Ignore package lists
 package.txt
 
 # Ignore logs and temporary files
 *.log
-lazygit
-gh
