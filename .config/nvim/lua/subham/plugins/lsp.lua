@@ -1,5 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
+  lazy = true,
   dependencies = {
     { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
@@ -13,16 +14,16 @@ return {
         local map = function(keys, func, desc)
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
-        map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-        map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-        map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        map('gd', require('telescope.builtin').lsp_definitions, 'Goto definition')
+        map('gr', require('telescope.builtin').lsp_references, 'Goto references')
+        map('gI', require('telescope.builtin').lsp_implementations, 'Goto implementation')
+        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Definition')
+        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
+        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace symbols')
+        map('<leader>rn', vim.lsp.buf.rename, 'Rename')
+        map('<leader>ca', vim.lsp.buf.code_action, 'Code action')
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
-        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map('gD', vim.lsp.buf.declaration, 'Goto declaration')
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
@@ -47,7 +48,7 @@ return {
         if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, '[T]oggle Inlay [H]ints')
+          end, 'Toggle hints')
         end
       end,
     })
@@ -68,6 +69,14 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua',
+      'gopls',
+      'grammarly-languageserver',
+      'rust-analyzer',
+      'eslint-lsp',
+      'lua-language-server',
+      'marksman',
+      'stylelint-lsp',
+      'tailwindcss-language-server',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
     require('mason-lspconfig').setup {
