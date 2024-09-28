@@ -5,10 +5,10 @@ return {
     {
       '<leader>fc',
       function()
-        require('conform').format { async = true, lsp_fallback = true }
+        require('conform').format { async = true, lsp_fallback = true, format_on_save = true }
       end,
       mode = '',
-      desc = '[F]ormat [C]urrent buffer',
+      desc = 'Format code',
     },
   },
   opts = {
@@ -22,8 +22,11 @@ return {
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
+      rust = { 'rustfmt' },
+      go = { 'gotests', 'gomodifytags', 'golines', 'gofumpt', 'goimports-reviser' },
+      markdown = { 'markdownlint-cli2' },
       python = { 'isort', 'black' },
-      javascript = { { 'prettierd', 'prettier' } },
+      javascript = { 'prettierd' },
     },
   },
 }
