@@ -1,7 +1,3 @@
-# Ignore every file and folder by default
-*
-.*
-
 # Ignore logs
 *.log
 *.pyc
