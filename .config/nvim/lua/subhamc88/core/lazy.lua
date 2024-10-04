@@ -1,4 +1,4 @@
---== Lazy Package Manager==--
+--== Lazy Package Manager ==--
 
 -- Space as Leader Key. --
 vim.g.mapleader = " "
@@ -23,14 +23,45 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy --
 require("lazy").setup({
 	spec = {
-		-- Importing plugins
-		{
-			import = "subhamc88.plugins",
-			-- By default plugins will be lazy loaded.
-			lazy = true,
+		-- This imports plugins from lua/subhamc88/plugins/*.lua
+		{ import = "subhamc88.plugins" },
+	},
+	install = { colorscheme = { "catppuccin-mocha", "habamax" } },
+	default = { lazy = true },
+	checker = { enabled = true },
+
+	-- Disable unnecessary builtin plugins.
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"2html_plugin",
+				"tohtml",
+				"getscript",
+				"getscriptPlugin",
+				"gzip",
+				"logipat",
+				"netrw",
+				"netrwPlugin",
+				"netrwSettings",
+				"netrwFileHandlers",
+				"matchit",
+				"tar",
+				"tarPlugin",
+				"rrhelper",
+				"spellfile_plugin",
+				"vimball",
+				"vimballPlugin",
+				"zip",
+				"zipPlugin",
+				"tutor",
+				"rplugin",
+				"syntax",
+				"synmenu",
+				"optwin",
+				"compiler",
+				"bugreport",
+				"ftplugin",
+			},
 		},
 	},
-	-- Setting up colorscheme --
-	install = { colorscheme = { "catppuccin-mocha", "habamax" } },
-	checker = { enabled = true },
 })
