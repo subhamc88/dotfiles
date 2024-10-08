@@ -51,3 +51,7 @@ opt.linebreak = true
 opt.autoread = true
 opt.backupskip = { "/tmp/*", "/private/tmp/*" }
 opt.backupskip = { "/tmp/*", "/private/tmp/*" }
+
+-- Spell Checking --
+opt.spell = true
+opt.spelllang = { "en_us" }
