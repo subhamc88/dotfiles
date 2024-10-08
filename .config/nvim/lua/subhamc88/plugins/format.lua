@@ -9,7 +9,7 @@ return {
 				rust = { "rustfmt", lsp_format = "fallback" },
 				typescript = { "prettierd", stop_after_first = true },
 				markdown = { "markdownlint-cli2" },
-				go = { "goimports", "gomodifytags", "goimports-reviser", "golines", "go-tests", "gofmupt" },
+				go = { "goimports", "gomodifytags", "goimports-reviser", "golines", "gotests", "gofumpt" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
