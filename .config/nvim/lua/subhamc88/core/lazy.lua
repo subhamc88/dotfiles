@@ -26,7 +26,7 @@ require("lazy").setup({
 		-- This imports plugins from lua/subhamc88/plugins/*.lua
 		{ import = "subhamc88.plugins" },
 	},
-	install = { colorscheme = { "catppuccin-mocha", "habamax" } },
+	install = { colorscheme = { "solarized", "habamax" } },
 	default = { lazy = true },
 	checker = { enabled = true },
 
