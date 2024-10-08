@@ -1,6 +1,9 @@
 # Evironment Variables
 export ZSH="$HOME/.config/zsh"
 export EDITOR="/usr/bin/nvim"
+export PLUG="$ZSH/subhamc88/plugins"
+export CORE="$ZSH/subhamc88/core"
+export PYENV_ROOT="$HOME/.pyenv"
 
 # History
 source $ZSH/.zsh_history
@@ -13,23 +16,21 @@ eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
 
 # Plugins
-export PLUG="$ZSH/plugins"
-
-source $PLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $PLUG/zsh-autosuggestions.zsh
-source $PLUG/command-not-found.plugin.zsh
-source $PLUG/sudo.plugin.zsh
-source $PLUG/vi-mode.plugin.zsh
-source $PLUG/zsh-you-should-use.plugin.zsh
-source $PLUG/zsh-history-substring-search.plugin.zsh
-
-fpath=($PLUG/zsh-completions.plugin.zsh)
-[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+source $PLUG/init.zsh
 
 # PyENV
-export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# Go
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# pnpm
+export PNPM_HOME="/home/subhamc88/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # Alias
 alias ls="exa -alh --group-directories-first --color=always"
