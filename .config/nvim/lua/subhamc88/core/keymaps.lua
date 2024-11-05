@@ -38,28 +38,27 @@ map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", { desc = "Version Control witho
 
 -- Conform --
 map({ "n", "v" }, "<leader>fc", function()
-	require("conform").format({
-		lsp_fallback = true,
-		aync = false,
-		timeout_ms = 500,
-	})
+  require("conform").format {
+    lsp_fallback = true,
+    aync = false,
+    timeout_ms = 500,
+  }
 end, { desc = "Code Formatting" })
 
 --== Linting ==--
 
 -- nvim-lint --
 map("n", "<leader>l", function()
-	require("lint").try_lint()
+  require("lint").try_lint()
 end, { desc = "Toggle lint" })
 
 --== Diagnostics ==--
 
--- Trouble --
-map("n", "<leader>d", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
-map("n", "<leader>ds", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
-map(
-	"n",
-	"<leader>dl",
-	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-	{ desc = "Toggle right debugging window." }
-)
+-- nvim-dap --
+map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>")
+map("n", "<leader>dc", "<cmd>DapContinue<CR>")
+map("n", "<leader>dus", function()
+  local widgets = require "dap.io.widgets"
+  local sidebar = widgets.sidebar(widgets.scope)
+  sidebar.open()
+end)
