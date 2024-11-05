@@ -1,21 +1,23 @@
 import os
 import subprocess
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Click, Drag, Group, Rule, Key, KeyChord, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from keymaps import keymaps
 
+
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/autostart.sh')
+    home = os.path.expanduser("~/.config/autostart.sh")
     subprocess.call(home)
+
 
 ## Settings ##
 keymaps_settings = {
-    "modifier_key":"mod1",
-    "terminal":"kitty",
-    "file_manager":"nautilus",
-    "web_browser":"vivaldi",
+    "modifier_key": "mod1",
+    "terminal": "kitty",
+    "file_manager": "nautilus",
+    "web_browser": "vivaldi",
 }
 
 keys = keymaps(keymaps_settings)
@@ -24,7 +26,7 @@ keys = keymaps(keymaps_settings)
 
 groups = [
     Group("1", label="TERM"),
-    Group("2", label="WEB", matches=[Match(wm_class="vivaldi-stable")],layout="max"),
+    Group("2", label="WEB", matches=[Match(wm_class="vivaldi-stable")], layout="max"),
     Group("3", label="NOTE", matches=[Match(wm_class="rnote")]),
     Group("4"),
     Group("5"),
@@ -37,8 +39,18 @@ groups = [
 for i in groups:
     keys.extend(
         [
-            Key([keymaps_settings["modifier_key"]],i.name,lazy.group[i.name].toscreen(),desc=f"Switch to group {i.name}",),
-            Key([keymaps_settings["modifier_key"], "shift" ],i.name,lazy.window.togroup(i.name, switch_group=False),desc=f"Switch to & move focused window to group {i.name}",),
+            Key(
+                [keymaps_settings["modifier_key"]],
+                i.name,
+                lazy.group[i.name].toscreen(),
+                desc=f"Switch to group {i.name}",
+            ),
+            Key(
+                [keymaps_settings["modifier_key"], "shift"],
+                i.name,
+                lazy.window.togroup(i.name, switch_group=False),
+                desc=f"Switch to & move focused window to group {i.name}",
+            ),
         ]
     )
 
@@ -97,8 +109,18 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([keymaps_settings["modifier_key"]], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([keymaps_settings["modifier_key"]], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Drag(
+        [keymaps_settings["modifier_key"]],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag(
+        [keymaps_settings["modifier_key"]],
+        "Button3",
+        lazy.window.set_size_floating(),
+        start=lazy.window.get_size(),
+    ),
     Click([keymaps_settings["modifier_key"]], "Button2", lazy.window.bring_to_front()),
 ]
 
