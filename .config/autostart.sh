@@ -1,2 +1,6 @@
 #!/bin/bash
-feh --no-fehbg --bg-fill '/storage/personal/wallpapers/catpuccin-rosewater.png'&
+picom -b &
+.$HOME/fehbg &
+vivaldi &
+easyeffects &
+keepassxc &
