@@ -1,101 +1,112 @@
 return {
-  "VonHeikemen/lsp-zero.nvim",
-  event = "VimEnter",
-  dependencies = {
-    "neovim/nvim-lspconfig",
-    "hrsh7th/cmp-nvim-lsp",
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    {
-      "j-hui/fidget.nvim",
-      opts = {
-        progress = {
-          display = {
-            done_icon = "✓",
-          },
-        },
-        notification = {
-          window = {
-            winblend = 0,
-          },
-        },
-      },
-    },
-  },
-  config = function()
-    local lsp_zero = require("lsp-zero")
+	"neovim/nvim-lspconfig",
 
-    -- Define the function for attaching LSP
-    local function lsp_attach(client, bufnr)
-      local opts = { buffer = bufnr }
+	dependencies = {
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-cmdline",
+		"hrsh7th/nvim-cmp",
+		"L3MON4D3/LuaSnip",
+		"saadparwaiz1/cmp_luasnip",
+	},
 
-      -- Debugging: Check buffer number
-      if type(bufnr) ~= "number" then
-        vim.notify("Buffer number is not valid: " .. tostring(bufnr), vim.log.levels.ERROR)
-        return
-      end
+	config = function()
+		local cmp = require("cmp")
+		local cmp_lsp = require("cmp_nvim_lsp")
 
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-      vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-      vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
-      vim.keymap.set("n", "<leader>ra", vim.lsp.buf.rename, opts)
-      vim.keymap.set("n", "<leader>cf", function()
-        vim.lsp.buf.format({ async = true })
-      end, opts)
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    end
+		-- Set up capabilities for LSP
+		local capabilities = vim.tbl_deep_extend(
+			"force",
+			{},
+			vim.lsp.protocol.make_client_capabilities(),
+			cmp_lsp.default_capabilities()
+		)
 
-    -- Setup lsp-zero
-    lsp_zero.extend_lspconfig({
-      sign_text = true,
-      capabilities = require("cmp_nvim_lsp").default_capabilities(),
-    })
+		-- Mason setup
+		require("mason").setup()
+		require("mason-lspconfig").setup({
+			ensure_installed = {
+				"lua_ls",
+				"rust_analyzer",
+				"gopls",
+				"pyright",
+				"jsonls",
+				"html",
+				"cssls",
+				"bashls",
+				"clangd",
+			},
+			handlers = {
+				function(server_name)
+					require("lspconfig")[server_name].setup({
+						capabilities = capabilities,
+						autostart = true,
+					})
+				end,
+				zls = function()
+					require("lspconfig").zls.setup({
+						root_dir = require("lspconfig").util.root_pattern(".git", "build.zig", "zls.json"),
+						settings = {
+							zls = {
+								enable_inlay_hints = true,
+								enable_snippets = true,
+								warn_style = true,
+							},
+						},
+					})
+					vim.g.zig_fmt_parse_errors = 0
+					vim.g.zig_fmt_autosave = 0
+				end,
+				["lua_ls"] = function()
+					require("lspconfig").lua_ls.setup({
+						capabilities = capabilities,
+						settings = {
+							Lua = {
+								runtime = { version = "Lua 5.1" },
+								diagnostics = {
+									globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+								},
+							},
+						},
+					})
+				end,
+			},
+		})
 
-    -- Setup Mason
-    require("mason").setup()
+		-- Setup completion
+		cmp.setup({
+			snippet = {
+				expand = function(args)
+					require("luasnip").lsp_expand(args.body)
+				end,
+			},
+			mapping = cmp.mapping.preset.insert({
+				["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+				["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<C-Space>"] = cmp.mapping.complete(),
+			}),
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+			}, {
+				{ name = "buffer" },
+			}),
+		})
 
-    -- Setup Mason LSPConfig
-    require("mason-lspconfig").setup({
-      ensure_installed = { "pylsp", "rust_analyzer", "gopls", "lua_ls", "tailwindcss" },
-      automatic_installation = true,
-      handlers = {
-        function(server_name)
-          local server_opts = {
-            on_attach = lsp_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          }
-          require("lspconfig")[server_name].setup(server_opts)
-        end,
-      },
-    })
-
-    -- Setup formatters and linters
-    require("mason-tool-installer").setup({
-      ensure_installed = {
-
-        -- Formatters
-        "prettierd",
-        "isort",
-        "blackd-client",
-        "marksman",
-        "markdownlint-cli2",
-
-        -- Linters
-        "markdownlint-cli2",
-        "gospel",
-        "luacheck",
-        "pylint",
-
-        -- Debuggers
-        "debugpy",
-        "bash-debug-adapter",
-        "delve",
-      },
-    })
-  end,
+		-- Diagnostic configuration
+		vim.diagnostic.config({
+			float = {
+				focusable = false,
+				style = "minimal",
+				border = "rounded",
+				source = "always",
+				header = "",
+				prefix = "",
+			},
+		})
+	end,
 }
