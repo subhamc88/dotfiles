@@ -1,1 +1,1 @@
-source $HOME/.config/zsh/.zshrc
+source $HOME/.config/shell/zsh/.zshrc
