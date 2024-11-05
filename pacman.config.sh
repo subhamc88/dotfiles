@@ -32,22 +32,10 @@ Include = /etc/pacman.d/mirrorlist
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 
-[arcolinux_repo]
-SigLevel = PackageRequired DatabaseNever
-Include = /etc/pacman.d/arcolinux-mirrorlist
-
-[arcolinux_repo_3party]
-SigLevel = PackageRequired DatabaseNever
-Include = /etc/pacman.d/arcolinux-mirrorlist
-
-[arcolinux_repo_xlarge]
-SigLevel = PackageRequired DatabaseNever
-Include = /etc/pacman.d/arcolinux-mirrorlist
-
 [chaotic-aur]
 Include = /etc/pacman.d/chaotic-mirrorlist
 
 # Optional: Uncomment to enable AUR support
-# [aur]
-# SigLevel = Optional
-# Include = /etc/pacman.d/aur-mirrorlist
+[aur]
+SigLevel = Optional
+Include = /etc/pacman.d/aur-mirrorlist
