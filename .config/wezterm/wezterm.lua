@@ -11,13 +11,14 @@ wezterm.on("restore_session", function(window)
 	session_manager.restore_state(window)
 end)
 local config = wezterm.config_builder()
-config.color_scheme = "Dracula"
+config.font = wezterm.font("FiraCode Nerd Font Mono")
+config.color_scheme = 'Gruvbox Dark (Gogh)'
 config.font_size = 16
 config.default_prog = { "/bin/zsh" }
-config.enable_wayland = true
+config.window_decorations = "RESIZE"
 config.keys = {
-	{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
-	{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
-	{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
+	{ key = "S", mods = "CTRL", action = wezterm.action({ EmitEvent = "save_session" }) },
+	{ key = "L", mods = "CTRL", action = wezterm.action({ EmitEvent = "load_session" }) },
+	{ key = "R", mods = "CTRL", action = wezterm.action({ EmitEvent = "restore_session" }) },
 }
 return config
